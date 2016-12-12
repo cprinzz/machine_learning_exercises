@@ -1,0 +1,1 @@
+num_params = 8;multiplier = 3;c = [.01, zeros(num_params -1,1)];sig = [0.1, zeros(num_params-1,1)];for i = 2:num_params  c(i) = c(i-1)*multiplier;  sig(i) = sig(i-1)*multiplier;end

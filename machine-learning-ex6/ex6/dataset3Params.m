@@ -24,6 +24,32 @@ sigma = 0.3;
 %
 
 
+allVals = [0, 0];
+bestPrediction = inf;
+
+values = [.01, .03, .1, .3, 1, 3, 10, 30];
+
+for c = values
+  for s = values
+    fprintf("C = %f, sig = %f \n",c, s);
+    model = svmTrain(X, y, c, @(x1, x2) gaussianKernel(x1, x2, s));
+    predictions = svmPredict(model, Xval);
+    prediction = mean(double(predictions ~= yval));
+    fprintf("prediction = %f \n\n", prediction);
+    if prediction <= bestPrediction;
+      bestPrediction = prediction;
+      bestVals = [c, s];
+      fprintf("New best prediction = %f \n C = %f \n sigma = %f \n\n",bestPrediction, c ,s);
+    end
+  end
+end
+
+
+C = bestVals(1);
+sigma = bestVals(2);
+fprintf("best C = %f \n best sigma = %f \n\n",C,sigma);
+
+
 
 
 
